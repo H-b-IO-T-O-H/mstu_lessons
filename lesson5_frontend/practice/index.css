@@ -1,0 +1,10 @@
+html, body, #root {
+    height: 100%;
+    margin: 0;
+}
+
+img.orange {
+    top: 30px;
+    position: absolute;
+    width: 30px;
+}

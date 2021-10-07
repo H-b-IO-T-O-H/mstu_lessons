@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru-en">
+<head>
+    <link rel="icon" href="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg">
+    <link rel="stylesheet" href="index.css">
+    <meta charset="UTF-8">
+    <title>Labs</title>
+</head>
+<body>
+<div id="root">
+    <div class="btn-panel">
+        <button type="button" onclick="orange.loop()">loop</button>
+        <button type="button" onclick="orange.moveUp()">up</button>
+        <button type="button" onclick="orange.moveDown()">down</button>
+        <button type="button" onclick="orange.moveLeft()">left</button>
+        <button type="button" onclick="orange.moveRight()">right</button>
+    </div>
+    <img class="orange"
+         src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
+         alt="oops">
+</div>
+</body>
+
+<script>
+
+    function sumPx(oldVal, step = 10) {
+        if (oldVal) {
+        } else {
+            return "10px"
+        }
+
+        return `${parseInt(oldVal) + step}px`
+    }
+
+    function divPx(oldVal, step = 10) {
+        if (oldVal) {
+        } else {
+            return "10px"
+        }
+
+        return `${parseInt(oldVal) - step}px`
+    }
+
+    class ElemMover {
+        constructor(className) {
+            this.elem = document.getElementsByClassName(className)[0];
+            this.style = this.elem.style;
+            this.eventLoop = 0
+        }
+
+        moveDown() {
+            this.style.top = sumPx(this.style.top)
+        }
+
+        moveUp() {
+            this.style.top = divPx(this.style.top)
+            this.style.bottom = sumPx(this.style.bottom)
+        }
+
+        moveLeft() {
+            this.style.left = divPx(this.style.left)
+        }
+
+        moveRight() {
+            this.style.left = sumPx(this.style.left)
+        }
+
+
+        loop() {
+            if (this.eventLoop !== 0) {
+                return
+            }
+            let callback = function () {
+                let right = this.elem.getBoundingClientRect().right;
+                //console.log(right, window.screen.width)
+                if (right > window.screen.width) {
+                    orange.moveLeft();
+                } else {
+                    orange.moveRight();
+                }
+            }.bind(this);
+
+            this.eventLoop = setInterval(callback, 50)
+        }
+    }
+
+    const orange = new ElemMover("orange");
+
+
+</script>
+
+</html>
