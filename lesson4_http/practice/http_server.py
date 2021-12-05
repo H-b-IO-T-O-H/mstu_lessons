@@ -25,7 +25,7 @@ class Server:
     def __init__(self):
         # Create a web server and define the handler to manage the
         # incoming request
-        # self.server = HTTPServer(('', PORT_NUMBER), CGIHTTPRequestHandler)
+        #self.server = HTTPServer(('', PORT_NUMBER), CGIHTTPRequestHandler)
         self.server = HTTPServer(('', PORT_NUMBER), MyHandler)
 
     def run(self, port):
